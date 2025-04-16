@@ -67,6 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "assets/F4.png",
       "assets/F5.png",
     ],
+
+    speech: [
+      "assets/bubble.png"
+    ],
   };
 
   // Hover effect logic
@@ -349,6 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Do one creative activity",
       "Practice Duolingo for 10 minutes",
     ],
+    
   };
 
   // Function to get 5 random tasks from a category
@@ -670,11 +675,92 @@ document.addEventListener("DOMContentLoaded", () => {
         const originalIndex = tasks.indexOf(task);
         tasks[originalIndex].completed = checkbox.checked;
 
-        if (tasks[originalIndex].completed) {
-          const deleteButton = taskItem.querySelector(".delete-task");
-          if (deleteButton) deleteButton.remove();
-        }
+        // if (tasks[originalIndex].completed) {
+        //   const deleteButton = taskItem.querySelector(".delete-task");
+        //   if (deleteButton) deleteButton.remove();
+        // }
+        if (checkbox.checked) {
+        
+          if (category !== "others") {
+            const encouragingMessages = [
+              "Great job!",
+              "You're making progress!",
+              "Keep going!",
+              "One step closer!",
+              "That's the way!",
+              "You're on fire!",
+              "Fantastic work!",
+              "Keep it up!",
+              "Proud of you!",
+              "You're crushing it!",
+              "Yippee!",
+              "Awesome!",
+              "Well done!",
+              "You're doing amazing!",
+              "You're a star!",
+              "You're unstoppable!",
+              "You're a superstar!",
+              "You're doing great!",
+              "You're a rockstar!",
+              "You're a champ!",
+            ];
 
+        
+
+            const speechBubbleContainer = document.createElement("div");
+            speechBubbleContainer.className = "bubble-container";
+
+            const speechBubbleImg = document.createElement("img");
+            speechBubbleImg.src = "assets/bubble.png";
+            speechBubbleImg.className = "bubble-img";
+
+            const messageText = document.createElement("div");
+            messageText.className = "bubble-text";
+
+            const randomMessage = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+            messageText.textContent = randomMessage;
+        
+            speechBubbleContainer.appendChild(speechBubbleImg);
+            speechBubbleContainer.appendChild(messageText);
+
+            const deerPositions = {
+              daily: { top: 300, left: 1200 },
+              home: { top: 400, left: 1125 },
+              pet: { top: 400, left: 1125 },
+              friends: { top: 400, left: 1125 },
+              mind: { top: 400, left: 1200 },
+              others: { top: 400, left: 1125 }
+            };
+
+            const position = deerPositions[category];
+            speechBubbleContainer.style.position = "absolute";
+            speechBubbleContainer.style.top = `${position.top}px`;
+            speechBubbleContainer.style.left = `${position.left}px`;
+            speechBubbleContainer.style.zIndex = "1000";
+
+            document.body.appendChild(speechBubbleContainer);
+        
+            speechBubbleContainer.style.opacity = "0";
+            speechBubbleContainer.style.transform = "scale(0.8)";
+            speechBubbleContainer.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+            
+            speechBubbleContainer.offsetHeight;
+            speechBubbleContainer.style.opacity = "1";
+            speechBubbleContainer.style.transform = "scale(1)";
+            
+            setTimeout(() => {
+              speechBubbleContainer.style.opacity = "0";
+              speechBubbleContainer.style.transform = "scale(0.8)";
+              setTimeout(() => {
+                speechBubbleContainer.remove();
+              }, 300);
+            }, 3000);
+
+            const deleteButton = taskItem.querySelector(".delete-task");
+            if (deleteButton) deleteButton.remove();
+          }
+      }
+      
         let newPosition = 0;
         if (checkbox.checked) {
           newPosition = tasks.filter(
