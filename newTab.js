@@ -705,8 +705,6 @@ document.addEventListener("DOMContentLoaded", () => {
               "You're a champ!",
             ];
 
-        
-
             const speechBubbleContainer = document.createElement("div");
             speechBubbleContainer.className = "bubble-container";
 
@@ -1035,4 +1033,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tasksContainer.classList.remove("hidden");
   }
+
+  const moodButtons = document.querySelectorAll(".mood-button");
+  const moodConfirmation = document.getElementById("mood-confirmation");
+  const today = new Date().toISOString().split("T")[0];
+
+  chrome.storage.local.get(["moodLog"], (result) => {
+    const moodLog = result.moodLog || {};
+    if (moodLog[today]) {
+      moodConfirmation.textContent = `You selected: ${moodLog[today]} today`;
+    }
+  });
+
+  moodButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const mood = button.dataset.mood;
+      chrome.storage.local.get(["moodLog"], (result) => {
+        const moodLog = result.moodLog || {};
+        moodLog[today] = mood;
+        chrome.storage.local.set({ moodLog }, () => {
+          moodConfirmation.textContent = `You selected: ${mood}`;
+          moodConfirmation.classList.add("visible");
+        });
+      });
+    });
+  });
 });
