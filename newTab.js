@@ -1051,11 +1051,31 @@ document.addEventListener("DOMContentLoaded", () => {
       chrome.storage.local.get(["moodLog"], (result) => {
         const moodLog = result.moodLog || {};
         moodLog[today] = mood;
+        
         chrome.storage.local.set({ moodLog }, () => {
-          moodConfirmation.textContent = `You selected: ${mood}`;
+          const stickyNote = document.getElementById("sticky-note");
+
+          if (mood === "sad") {
+            moodConfirmation.textContent = "🩷 Sending you extra love today.";
+            stickyNote.classList.add("visible");
+
+          } else if (mood === "happy") {
+            moodConfirmation.textContent = "LET'S GOOOOOO";
+            stickyNote.classList.remove("visible");
+          } else {
+            moodConfirmation.textContent = `feelin: ${mood}`;
+            stickyNote.classList.remove("visible");
+          }
+
           moodConfirmation.classList.add("visible");
         });
       });
     });
   });
+
+  document.getElementById("close-sticky").addEventListener("click", () => {
+    document.getElementById("sticky-note").classList.remove("visible");
+  });
+
+  
 });
