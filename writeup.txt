@@ -1,0 +1,20 @@
+This Chrome extension enhancement includes the implementation of two user-focused features that promote emotional engagement and daily mood tracking.
+
+1. Mood Selection Prompt
+Overview:
+A mood selection interface was added to the extension’s main UI, allowing users to quickly log how they feel each day.
+Functionality:
+Three emoji buttons (😊, 😐, 😢) represent "happy", "neutral", and "sad" moods, respectively.
+A confirmation message is displayed after mood selection. The message varies based on the mood selected to create a more personalized experience.
+
+2. Sticky Note for Sad Mood
+Overview:
+To further support user well-being, a visually distinct sticky note is triggered when a user selects "sad" as their mood.
+Functionality:
+When the "sad" mood is selected, a yellow sticky note appears in the top-left corner of the interface.
+The note displays the following message:
+"🩷 Reminder: Prioritize taking care of yourself today."
+The sticky note is dismissible via a small ❌ close button.
+
+Design Details:
+Styled with light pastel colors and rounded edges to match the aesthetic of the original extension.
