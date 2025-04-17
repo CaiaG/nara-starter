@@ -18,3 +18,5 @@ The sticky note is dismissible via a small ❌ close button.
 
 Design Details:
 Styled with light pastel colors and rounded edges to match the aesthetic of the original extension.
+
+Demo video: https://www.youtube.com/watch?v=1asZFUwVcOE
